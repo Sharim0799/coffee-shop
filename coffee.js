@@ -1,19 +1,19 @@
 /* ===== COFFEE WEBSITE JAVASCRIPT ===== */
-/* Clean, organized, and beginner-friendly code */
 
 /* ===== CONFIGURATION ===== */
 const CONFIG = {
-    // Animation settings
     scrollDuration: 800,
     testimonialInterval: 5000,
     fadeInThreshold: 0.1,
-    mobileBreakpoint: 768,
-
-    // Form validation settings
+    breakpoints: {
+        mobile: 480,
+        mobileLarge: 767,
+        tablet: 1023,
+        desktop: 1199,
+        large: 1200
+    },
     maxPersons: 10,
     minPersons: 1,
-
-    // Business hours (24-hour format)
     businessHours: {
         monday: { open: 8, close: 20 },
         tuesday: { open: 8, close: 20 },
@@ -25,55 +25,20 @@ const CONFIG = {
     }
 };
 
-/* ===== VALIDATION PATTERNS ===== */
 const VALIDATION = {
     email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
     phone: /^[\+]?[0-9\s\-\(\)]{10,}$/
 };
 
 /* ===== UTILITY FUNCTIONS ===== */
-
-/**
- * Safely select a single DOM element
- */
 function $(selector) {
     return document.querySelector(selector);
 }
 
-/**
- * Safely select multiple DOM elements
- */
 function $$(selector) {
     return document.querySelectorAll(selector);
 }
 
-/**
- * Add event listener with error handling
- */
-function addEventListenerSafe(element, event, handler) {
-    if (element && typeof handler === 'function') {
-        element.addEventListener(event, handler);
-    }
-}
-
-/**
- * Check if element is in viewport
- */
-function isElementInViewport(element) {
-    if (!element) return false;
-
-    const rect = element.getBoundingClientRect();
-    return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
-}
-
-/**
- * Debounce function calls
- */
 function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -86,44 +51,30 @@ function debounce(func, wait) {
     };
 }
 
-/**
- * Check if device is mobile
- */
-function isMobile() {
-    return window.innerWidth <= CONFIG.mobileBreakpoint;
+function getDeviceType() {
+    const width = window.innerWidth;
+    if (width <= CONFIG.breakpoints.mobile) return 'mobile';
+    if (width <= CONFIG.breakpoints.mobileLarge) return 'mobile-large';
+    if (width <= CONFIG.breakpoints.tablet) return 'tablet';
+    if (width <= CONFIG.breakpoints.desktop) return 'desktop';
+    return 'large';
 }
 
-/**
- * Format time for display
- */
-function formatTime(hours) {
-    if (hours === 0) return '12:00 AM';
-    if (hours < 12) return `${hours}:00 AM`;
-    if (hours === 12) return '12:00 PM';
-    return `${hours - 12}:00 PM`;
+function isMobile() {
+    return window.innerWidth <= CONFIG.breakpoints.mobileLarge;
 }
 
 /* ===== MAIN INITIALIZATION ===== */
-
-/**
- * Initialize all website features
- */
 function initCoffeeWebsite() {
     console.log('🚀 Initializing Coffee Website...');
-
     try {
-        // Initialize all features
         initSmoothScrolling();
         initScrollAnimations();
         initHoverAnimations();
         initTestimonialSlider();
         initLoadingAnimation();
         initMobileMenu();
-        initFormValidation();
-        initBackToTop();
-        initBusinessHours();
-        initNewsletterSignup();
-
+        handleResponsiveLayout();
         console.log('✅ Coffee Website initialized successfully!');
     } catch (error) {
         console.error('❌ Error initializing Coffee Website:', error);
@@ -131,19 +82,13 @@ function initCoffeeWebsite() {
 }
 
 /* ===== SMOOTH SCROLLING ===== */
-
 function initSmoothScrolling() {
-    console.log('📍 Initializing smooth scrolling...');
-    
-    // Add smooth scrolling to navigation links
     const navLinks = $$('.nav-links a[href^="#"]');
-    
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
             const targetSection = $(targetId);
-            
             if (targetSection) {
                 targetSection.scrollIntoView({
                     behavior: 'smooth',
@@ -155,11 +100,7 @@ function initSmoothScrolling() {
 }
 
 /* ===== SCROLL ANIMATIONS ===== */
-
 function initScrollAnimations() {
-    console.log('✨ Initializing scroll animations...');
-    
-    // Create intersection observer for scroll animations
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -174,9 +115,7 @@ function initScrollAnimations() {
         });
     }, observerOptions);
     
-    // Observe sections for animation
     const sections = $$('.about-section, .services-section, .menu-section, .testimonial-section, .contact-section');
-    
     sections.forEach(section => {
         section.style.opacity = '0';
         section.style.transform = 'translateY(30px)';
@@ -186,13 +125,8 @@ function initScrollAnimations() {
 }
 
 /* ===== HOVER ANIMATIONS ===== */
-
 function initHoverAnimations() {
-    console.log('🎯 Initializing hover animations...');
-    
-    // Add ripple effect to buttons
     const buttons = $$('button, .btn');
-    
     buttons.forEach(button => {
         button.addEventListener('click', function(e) {
             const ripple = document.createElement('span');
@@ -207,19 +141,13 @@ function initHoverAnimations() {
             ripple.classList.add('ripple');
             
             this.appendChild(ripple);
-            
-            setTimeout(() => {
-                ripple.remove();
-            }, 600);
+            setTimeout(() => ripple.remove(), 600);
         });
     });
 }
 
 /* ===== TESTIMONIAL SLIDER ===== */
-
 function initTestimonialSlider() {
-    console.log('💬 Initializing testimonial slider...');
-    
     const slider = $('.testimonials-grid');
     const dots = $$('.testimonial-dots .dot');
     const prevBtn = $('#prevBtn');
@@ -232,71 +160,62 @@ function initTestimonialSlider() {
     let isPlaying = true;
     let autoPlayInterval;
     
-    // Calculate slide width dynamically
     function getSlideWidth() {
         const item = testimonialItems[0];
         if (!item) return 390;
-        
+        const deviceType = getDeviceType();
         const itemWidth = item.offsetWidth;
-        const gap = window.innerWidth <= 768 ? 20 : 40;
+        let gap;
+        switch(deviceType) {
+            case 'mobile': gap = 15; break;
+            case 'mobile-large': gap = 20; break;
+            case 'tablet': gap = 30; break;
+            default: gap = 40;
+        }
         return itemWidth + gap;
     }
     
-    // Start autoplay
     function startAutoPlay() {
         autoPlayInterval = setInterval(() => {
-            if (isPlaying) {
-                nextSlide();
-            }
+            if (isPlaying) nextSlide();
         }, CONFIG.testimonialInterval);
     }
     
-    // Stop autoplay
     function stopAutoPlay() {
         clearInterval(autoPlayInterval);
     }
     
-    // Update slider position
     function updateSlider() {
         const slideWidth = getSlideWidth();
         const translateX = -currentSlide * slideWidth;
         slider.style.transform = `translateX(${translateX}px)`;
         
-        // Update dots
         dots.forEach((dot, index) => {
             dot.classList.toggle('active', index === currentSlide);
         });
         
-        // Update button states
         prevBtn.disabled = currentSlide === 0;
         nextBtn.disabled = currentSlide === testimonialItems.length - 1;
     }
     
-    // Go to next slide
     function nextSlide() {
         if (currentSlide < testimonialItems.length - 1) {
             currentSlide++;
-            updateSlider();
         } else {
-            // Loop back to first slide
             currentSlide = 0;
-            updateSlider();
         }
+        updateSlider();
     }
     
-    // Go to previous slide
     function prevSlide() {
         if (currentSlide > 0) {
             currentSlide--;
-            updateSlider();
         } else {
-            // Loop to last slide
             currentSlide = testimonialItems.length - 1;
-            updateSlider();
         }
+        updateSlider();
     }
     
-    // Go to specific slide
     function goToSlide(slideIndex) {
         currentSlide = slideIndex;
         updateSlider();
@@ -305,42 +224,33 @@ function initTestimonialSlider() {
     // Event listeners
     prevBtn.addEventListener('click', () => {
         prevSlide();
-        // Pause autoplay temporarily when user interacts
         stopAutoPlay();
-        setTimeout(startAutoPlay, 10000); // Resume after 10 seconds
+        setTimeout(startAutoPlay, 10000);
     });
     
     nextBtn.addEventListener('click', () => {
         nextSlide();
-        // Pause autoplay temporarily when user interacts
         stopAutoPlay();
-        setTimeout(startAutoPlay, 10000); // Resume after 10 seconds
+        setTimeout(startAutoPlay, 10000);
     });
     
-    // Dot navigation
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
             goToSlide(index);
-            // Pause autoplay temporarily when user interacts
             stopAutoPlay();
-            setTimeout(startAutoPlay, 10000); // Resume after 10 seconds
+            setTimeout(startAutoPlay, 10000);
         });
     });
     
-    // Pause on hover
     slider.addEventListener('mouseenter', () => {
-        if (isPlaying) {
-            stopAutoPlay();
-        }
+        if (isPlaying) stopAutoPlay();
     });
     
     slider.addEventListener('mouseleave', () => {
-        if (isPlaying) {
-            startAutoPlay();
-        }
+        if (isPlaying) startAutoPlay();
     });
     
-    // Touch/swipe support for mobile
+    // Touch support
     let startX = 0;
     let isDragging = false;
     
@@ -357,11 +267,9 @@ function initTestimonialSlider() {
     
     slider.addEventListener('touchend', (e) => {
         if (!isDragging) return;
-        
         const endX = e.changedTouches[0].clientX;
         const diffX = startX - endX;
         
-        // Minimum swipe distance
         if (Math.abs(diffX) > 50) {
             if (diffX > 0) {
                 nextSlide();
@@ -371,37 +279,25 @@ function initTestimonialSlider() {
         }
         
         isDragging = false;
-        if (isPlaying) {
-            setTimeout(startAutoPlay, 10000);
-        }
+        if (isPlaying) setTimeout(startAutoPlay, 10000);
     });
     
-    // Handle window resize
     window.addEventListener('resize', debounce(() => {
         updateSlider();
     }, 250));
     
-    // Initialize
     updateSlider();
     startAutoPlay();
-    
-    console.log('✅ Testimonial slider initialized');
 }
 
 /* ===== LOADING ANIMATION ===== */
-
 function initLoadingAnimation() {
-    console.log('⏳ Initializing loading animations...');
-    
-    // Add loading class to body initially
     document.body.classList.add('loading');
     
-    // Scroll to top on page load/refresh
     window.addEventListener('beforeunload', () => {
         window.scrollTo(0, 0);
     });
     
-    // Also scroll to top when page loads
     window.addEventListener('load', () => {
         window.scrollTo(0, 0);
         setTimeout(() => {
@@ -410,64 +306,127 @@ function initLoadingAnimation() {
         }, 500);
     });
     
-    // Scroll to top on page refresh (additional method)
     if (history.scrollRestoration) {
         history.scrollRestoration = 'manual';
     }
 }
 
-/* ===== PLACEHOLDER FUNCTIONS ===== */
-/* These will be implemented as needed */
-
+/* ===== RESPONSIVE UTILITIES ===== */
 function initMobileMenu() {
-    console.log('📱 Mobile menu ready for implementation');
+    const nav = $('nav');
+    const navLinks = $('.nav-links');
+    
+    if (isMobile()) {
+        let hamburger = $('.hamburger-menu');
+        if (!hamburger) {
+            hamburger = document.createElement('button');
+            hamburger.className = 'hamburger-menu';
+            hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            hamburger.style.cssText = `
+                display: none;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 24px;
+                cursor: pointer;
+                padding: 10px;
+            `;
+            
+            nav.appendChild(hamburger);
+            
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('mobile-active');
+            });
+        }
+        
+        if (window.innerWidth <= CONFIG.breakpoints.mobile) {
+            hamburger.style.display = 'block';
+            navLinks.style.cssText = `
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.9);
+                flex-direction: column;
+                padding: 20px;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            `;
+        }
+    }
 }
 
+function handleResponsiveLayout() {
+    const deviceType = getDeviceType();
+    const testimonialItems = $$('.testimonial-item');
+    
+    testimonialItems.forEach(item => {
+        switch(deviceType) {
+            case 'mobile':
+                item.style.minWidth = '260px';
+                item.style.flex = '0 0 260px';
+                break;
+            case 'mobile-large':
+                item.style.minWidth = '280px';
+                item.style.flex = '0 0 280px';
+                break;
+            case 'tablet':
+                item.style.minWidth = '320px';
+                item.style.flex = '0 0 320px';
+                break;
+            default:
+                item.style.minWidth = '350px';
+                item.style.flex = '0 0 350px';
+        }
+    });
+    
+    const heroContent = $('.hero-content');
+    if (heroContent && isMobile()) {
+        heroContent.style.padding = '0 20px';
+    }
+}
+
+/* ===== PLACEHOLDER FUNCTIONS ===== */
 function initFormValidation() {
-    console.log('📝 Form validation ready for implementation');
+    console.log('📝 Form validation ready');
 }
 
 function initBackToTop() {
-    console.log('⬆️ Back to top ready for implementation');
+    console.log('⬆️ Back to top ready');
 }
 
 function initBusinessHours() {
-    console.log('🕒 Business hours ready for implementation');
+    console.log('🕒 Business hours ready');
 }
 
 function initNewsletterSignup() {
-    console.log('📧 Newsletter signup ready for implementation');
+    console.log('📧 Newsletter signup ready');
 }
 
 /* ===== EVENT LISTENERS ===== */
-
-// Scroll to top immediately when DOM starts loading
 window.scrollTo(0, 0);
 
-// Wait for DOM to be fully loaded before initializing
 document.addEventListener('DOMContentLoaded', () => {
-    // Ensure we're at the top
     window.scrollTo(0, 0);
     initCoffeeWebsite();
 });
 
-// Handle window resize events
 window.addEventListener('resize', debounce(() => {
-    console.log('📱 Window resized, adjusting layout...');
-    // Responsive adjustments will be added as features are implemented
+    handleResponsiveLayout();
+    const currentDevice = getDeviceType();
+    if (currentDevice === 'mobile' || currentDevice === 'mobile-large') {
+        initMobileMenu();
+    }
 }, 250));
 
-// Handle page visibility changes
 document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
         console.log('👁️ Page hidden - pausing animations');
-        // Pause animations when page is not visible
     } else {
         console.log('👁️ Page visible - resuming animations');
-        // Resume animations when page becomes visible
     }
 });
 
-console.log('📄 Coffee Website JavaScript loaded - waiting for DOM...');
-
-/* ===== END OF JAVASCRIPT ===== */
+console.log('📄 Coffee Website JavaScript loaded');

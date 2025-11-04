@@ -18,7 +18,8 @@ body {
 }
 
 /* ===== SMOOTH TRANSITIONS ===== */
-a, button {
+a,
+button {
   transition: all 0.3s ease;
 }
 
@@ -28,6 +29,7 @@ a, button {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -39,6 +41,7 @@ a, button {
     opacity: 0;
     transform: translateX(-30px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -50,6 +53,7 @@ a, button {
     opacity: 0;
     transform: scale(0.8);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -57,12 +61,18 @@ a, button {
 }
 
 @keyframes bounce {
-  0%, 20%, 60%, 100% {
+
+  0%,
+  20%,
+  60%,
+  100% {
     transform: translateY(0);
   }
+
   40% {
     transform: translateY(-10px);
   }
+
   80% {
     transform: translateY(-5px);
   }
@@ -72,18 +82,23 @@ a, button {
   0% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(1.05);
   }
+
   100% {
     transform: scale(1);
   }
 }
 
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-10px);
   }
@@ -94,6 +109,7 @@ a, button {
     transform: scale(0);
     opacity: 1;
   }
+
   100% {
     transform: scale(4);
     opacity: 0;
@@ -119,7 +135,8 @@ a, button {
 }
 
 /* ===== RIPPLE EFFECT ===== */
-button, .btn {
+button,
+.btn {
   position: relative;
   overflow: hidden;
 }
@@ -181,12 +198,29 @@ nav {
   animation: fadeInLeft 0.8s ease-out;
 }
 
-.nav-links li:nth-child(1) { animation-delay: 0.1s; }
-.nav-links li:nth-child(2) { animation-delay: 0.2s; }
-.nav-links li:nth-child(3) { animation-delay: 0.3s; }
-.nav-links li:nth-child(4) { animation-delay: 0.4s; }
-.nav-links li:nth-child(5) { animation-delay: 0.5s; }
-.nav-links li:nth-child(6) { animation-delay: 0.6s; }
+.nav-links li:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.nav-links li:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.nav-links li:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.nav-links li:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.nav-links li:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.nav-links li:nth-child(6) {
+  animation-delay: 0.6s;
+}
 
 .nav-links li a {
   text-decoration: none;
@@ -255,9 +289,8 @@ nav {
   justify-content: flex-end;
   height: 180px;
   background-color: white;
-  margin: 20px auto 0 auto;
+  margin: 0 auto;
   max-width: 1200px;
-  border-radius: 15px 15px 0 0;
   padding-bottom: 40px;
 }
 
@@ -307,7 +340,8 @@ nav {
   border-radius: 15px;
 }
 
-.heritage, .promise {
+.heritage,
+.promise {
   flex: 1;
   color: #333;
   text-align: left;
@@ -327,14 +361,16 @@ nav {
   font-weight: 500;
 }
 
-.description, .promise-text {
+.description,
+.promise-text {
   font-size: 1rem;
   line-height: 1.6;
   color: #666;
   margin-bottom: 30px;
 }
 
-.explore-btn, .brewing-btn {
+.explore-btn,
+.brewing-btn {
   background-color: #2c1810;
   color: white;
   padding: 12px 24px;
@@ -345,7 +381,8 @@ nav {
   transition: all 0.3s ease;
 }
 
-.explore-btn:hover, .brewing-btn:hover {
+.explore-btn:hover,
+.brewing-btn:hover {
   background-color: #c19660;
 }
 
@@ -938,7 +975,7 @@ nav {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: 
+  background-image:
     radial-gradient(circle at 20% 80%, rgba(210, 180, 140, 0.03) 0%, transparent 50%),
     radial-gradient(circle at 80% 20%, rgba(210, 180, 140, 0.03) 0%, transparent 50%);
   border-radius: 20px;
@@ -1456,7 +1493,7 @@ nav {
 }
 
 .newsletter-btn {
-  padding: 12px 20px;
+  padding: 12px 25px;
   background: #D2B48C;
   color: #2c1810;
   border: none;
@@ -1464,6 +1501,8 @@ nav {
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
+  min-width: 120px;
+  white-space: nowrap;
 }
 
 .newsletter-btn:hover {
@@ -1586,45 +1625,219 @@ nav {
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
-@media (max-width: 768px) {
+
+/* ===== LARGE DEVICES (1200px and up) ===== */
+@media (min-width: 1200px) {
+  .main00 {
+    height: 100vh;
+  }
+
+  nav {
+    padding: 25px 100px;
+  }
+
+  .logo {
+    font-size: 50px;
+  }
+
+  .nav-links {
+    gap: 45px;
+  }
+
+  .hero-content h1 {
+    font-size: 120px;
+  }
+
+  .hero-content p {
+    font-size: 28px;
+  }
+
+  .hero-content h3 {
+    font-size: 32px;
+  }
+
+  .heritage-promise-section {
+    padding: 100px 60px;
+    gap: 80px;
+  }
+
+  .section-title {
+    font-size: 3rem;
+  }
+
+  .services-section {
+    padding: 100px 60px;
+  }
+
+  .services-row {
+    gap: 80px;
+  }
+
+  .coffee-menu {
+    padding: 100px 60px;
+  }
+
+  .menu-columns {
+    gap: 100px;
+  }
+
+  .testimonial-section {
+    padding: 80px 60px;
+  }
+
+  .contact-section {
+    padding: 100px 60px;
+  }
+
+  .footer-section {
+    padding: 80px 60px 0;
+  }
+}
+
+/* ===== DESKTOP/LAPTOP (1024px to 1199px) ===== */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  nav {
+    padding: 20px 60px;
+  }
+
+  .logo {
+    font-size: 42px;
+  }
+
+  .nav-links {
+    gap: 30px;
+  }
+
+  .hero-content h1 {
+    font-size: 90px;
+  }
+
+  .hero-content p {
+    font-size: 22px;
+  }
+
+  .hero-content h3 {
+    font-size: 26px;
+  }
+
+  .heritage-promise-section {
+    padding: 70px 40px;
+    gap: 50px;
+  }
+
+  .section-title {
+    font-size: 2.2rem;
+  }
+
+  .services-section {
+    padding: 70px 40px;
+  }
+
+  .services-row {
+    gap: 50px;
+  }
+
+  .coffee-menu {
+    padding: 70px 40px;
+  }
+
+  .menu-columns {
+    gap: 60px;
+  }
+
+  .testimonial-section {
+    padding: 70px 40px;
+  }
+
+  .contact-section {
+    padding: 70px 40px;
+  }
+
+  .footer-section {
+    padding: 70px 40px 0;
+  }
+}
+
+/* ===== TABLET (768px to 1023px) ===== */
+@media (min-width: 768px) and (max-width: 1023px) {
+  nav {
+    padding: 15px 40px;
+  }
+
+  .logo {
+    font-size: 38px;
+  }
+
+  .nav-links {
+    gap: 25px;
+  }
+
+  .nav-links li a {
+    font-size: 14px;
+  }
+
+  .hero-content h1 {
+    font-size: 70px;
+  }
+
+  .hero-content p {
+    font-size: 20px;
+  }
+
+  .hero-content h3 {
+    font-size: 24px;
+  }
+
+  .heritage-promise-section {
+    flex-direction: column;
+    padding: 60px 30px;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .heritage,
+  .promise {
+    text-align: center;
+  }
+
+  .coffee-center {
+    flex: none;
+    order: -1;
+  }
+
+  .coffee-image {
+    width: 200px;
+    height: 200px;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .services-section {
+    padding: 60px 30px;
+  }
+
   .services-row {
     flex-direction: column;
     gap: 40px;
   }
 
   .service-item {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .service-image {
-    flex: none;
-  }
-
-  .services-section {
-    padding: 20px;
-  }
-
-  .offer-percentage {
-    font-size: 3rem;
-  }
-
-  .offer-title {
-    font-size: 2rem;
-  }
-
-  .email-form {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .email-input,
-  .signup-btn {
-    border-radius: 5px;
+    max-width: 600px;
+    margin: 0 auto;
   }
 
   .special-offer-section {
-    padding: 60px 20px;
+    padding: 60px 30px;
+  }
+
+  .offer-percentage {
+    font-size: 3.5rem;
+  }
+
+  .offer-title {
+    font-size: 2.2rem;
   }
 
   .menu-title {
@@ -1632,65 +1845,314 @@ nav {
   }
 
   .menu-section {
-    padding: 60px 20px;
+    padding: 50px 30px;
+  }
+
+  .coffee-menu {
+    padding: 60px 30px;
   }
 
   .menu-columns {
     flex-direction: column;
-    gap: 50px;
+    gap: 40px;
   }
 
   .column-title {
     text-align: center;
+    font-size: 1.8rem;
+  }
+
+  .reservation-content {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .reservation-right {
+    flex: none;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .discount-text {
+    font-size: 3.5rem;
+  }
+
+  .reservation-title {
+    font-size: 2.2rem;
+  }
+
+  .reservation-section {
+    padding: 50px 30px;
+  }
+
+  .testimonial-section {
+    padding: 50px 30px;
+  }
+
+  .testimonial-item {
+    min-width: 320px;
+    flex: 0 0 320px;
+  }
+
+  .testimonial-navigation {
+    gap: 20px;
+  }
+
+  .contact-section {
+    padding: 50px 30px;
+  }
+
+  .contact-title {
+    font-size: 2.5rem;
+  }
+
+  .contact-info-grid {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .contact-info-item {
+    flex: 0 0 250px;
+  }
+
+  .map-contact-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .map-section iframe {
+    height: 350px;
+  }
+
+  .footer-content {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+
+  .footer-section {
+    padding: 50px 30px 0;
+  }
+}
+
+/* ===== MOBILE LARGE (481px to 767px) ===== */
+@media (min-width: 481px) and (max-width: 767px) {
+  nav {
+    padding: 15px 20px;
+    flex-wrap: wrap;
+  }
+
+  .logo {
+    font-size: 32px;
+    padding-top: 10px;
+  }
+
+  .nav-links {
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .nav-links li a {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  .hero {
+    padding: 20px;
+  }
+
+  .hero-content h1 {
+    font-size: 50px;
+    line-height: 1.1;
+  }
+
+  .hero-content p {
+    font-size: 18px;
+  }
+
+  .hero-content h3 {
+    font-size: 20px;
+  }
+
+  .about-section {
+    height: 150px;
+    padding-bottom: 30px;
+  }
+
+  .h1 {
+    font-size: 28px;
+    height: 100px;
+  }
+
+  .heritage-promise-section {
+    flex-direction: column;
+    padding: 40px 20px;
+    gap: 30px;
+    text-align: center;
+  }
+
+  .heritage,
+  .promise {
+    text-align: center;
+  }
+
+  .coffee-center {
+    flex: none;
+    order: -1;
+  }
+
+  .coffee-image {
+    width: 180px;
+    height: 180px;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+  }
+
+  .services-section {
+    padding: 40px 20px;
+  }
+
+  .services-row {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .service-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .service-image {
+    flex: none;
+  }
+
+  .service-image img {
+    height: 120px;
+  }
+
+  .special-offer-section {
+    padding: 40px 20px;
+  }
+
+  .offer-percentage {
+    font-size: 2.8rem;
+  }
+
+  .offer-title {
+    font-size: 1.8rem;
+  }
+
+  .offer-description {
+    font-size: 1rem;
+  }
+
+  .email-form {
+    flex-direction: column;
+    gap: 10px;
+    max-width: 300px;
+  }
+
+  .email-input,
+  .signup-btn {
+    border-radius: 5px;
+  }
+
+  .menu-title {
+    font-size: 2rem;
+  }
+
+  .menu-section {
+    padding: 40px 20px;
   }
 
   .coffee-menu {
     padding: 40px 20px;
   }
 
+  .menu-columns {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .column-title {
+    text-align: center;
+    font-size: 1.5rem;
+  }
+
   .menu-item {
-    margin-bottom: 30px;
+    margin-bottom: 25px;
+    padding: 12px;
+  }
+
+  .coffee-image-menu img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .coffee-image-menu {
+    flex: 0 0 70px;
+  }
+
+  .item-name {
+    font-size: 1.2rem;
+  }
+
+  .item-description {
+    font-size: 0.9rem;
   }
 
   .reservation-content {
     flex-direction: column;
-    gap: 50px;
+    gap: 30px;
   }
 
   .reservation-right {
     flex: none;
     width: 100%;
     max-width: 400px;
+    margin: 0 auto;
+    padding: 30px;
   }
 
   .discount-text {
-    font-size: 3rem;
+    font-size: 2.8rem;
   }
 
   .reservation-title {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   .reservation-section {
-    padding: 60px 20px;
+    padding: 40px 20px;
   }
 
-  .testimonials-grid {
-    gap: 20px;
-  }
-
-  .testimonial-item {
-    min-width: 300px;
-    flex: 0 0 300px;
-    padding: 25px;
-  }
-
-  .testimonial-title {
-    font-size: 2.5rem;
+  .form-title {
+    font-size: 1.5rem;
   }
 
   .testimonial-section {
-    padding: 60px 20px;
+    padding: 40px 20px;
+  }
+
+  .testimonial-header-title,
+  .testimonial-title {
+    font-size: 2rem;
+  }
+
+  .testimonial-item {
+    min-width: 280px;
+    flex: 0 0 280px;
+    padding: 25px;
   }
 
   .testimonial-navigation {
@@ -1703,22 +2165,22 @@ nav {
     font-size: 14px;
   }
 
-  .contact-info-grid {
-    flex-direction: column;
-    gap: 30px;
+  .contact-section {
+    padding: 40px 20px;
   }
 
   .contact-title {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
-  .contact-section {
-    padding: 60px 20px;
+  .contact-info-grid {
+    flex-direction: column;
+    gap: 25px;
   }
 
   .map-contact-container {
     flex-direction: column;
-    gap: 30px;
+    gap: 25px;
   }
 
   .map-section iframe {
@@ -1726,11 +2188,11 @@ nav {
   }
 
   .contact-form-section {
-    padding: 30px;
+    padding: 25px;
   }
 
   .map-contact-section {
-    padding: 60px 20px;
+    padding: 40px 20px;
   }
 
   .footer-content {
@@ -1751,6 +2213,454 @@ nav {
   .newsletter-btn {
     border-radius: 5px;
   }
+}
+
+/* ===== MOBILE SMALL (320px to 480px) ===== */
+@media (max-width: 480px) {
+  nav {
+    padding: 10px 15px;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .logo {
+    font-size: 28px;
+    padding-top: 5px;
+  }
+
+  .nav-links {
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav-links li a {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .hero {
+    padding: 15px;
+    height: calc(100vh - 120px);
+  }
+
+  .hero-content h1 {
+    font-size: 40px;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  .hero-content p {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  .hero-content h3 {
+    font-size: 18px;
+  }
+
+  .about-section {
+    height: 120px;
+    padding-bottom: 20px;
+    margin: 15px auto 0 auto;
+  }
+
+  .vline {
+    height: 40px;
+  }
+
+  .about-section h2 {
+    font-size: 12px;
+  }
+
+  .h1 {
+    font-size: 24px;
+    height: 80px;
+    margin: 0 auto 15px auto;
+  }
+
+  .heritage-promise-section {
+    flex-direction: column;
+    padding: 30px 15px;
+    gap: 25px;
+    text-align: center;
+    margin: 15px auto;
+  }
+
+  .heritage,
+  .promise {
+    text-align: center;
+  }
+
+  .coffee-center {
+    flex: none;
+    order: -1;
+  }
+
+  .coffee-image {
+    width: 150px;
+    height: 150px;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .description,
+  .promise-text {
+    font-size: 0.9rem;
+  }
+
+  .explore-btn,
+  .brewing-btn {
+    padding: 10px 20px;
+    font-size: 0.8rem;
+  }
+
+  .services-section {
+    padding: 30px 15px;
+    margin: 0 auto 15px auto;
+  }
+
+  .services-row {
+    flex-direction: column;
+    gap: 25px;
+    margin-bottom: 40px;
+  }
+
+  .service-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+
+  .service-image {
+    flex: none;
+  }
+
+  .service-image img {
+    height: 100px;
+  }
+
+  .service-title {
+    font-size: 1.1rem;
+  }
+
+  .service-description {
+    font-size: 0.85rem;
+  }
+
+  .special-offer-section {
+    padding: 30px 15px;
+  }
+
+  .offer-percentage {
+    font-size: 2.5rem;
+  }
+
+  .offer-title {
+    font-size: 1.5rem;
+  }
+
+  .offer-description {
+    font-size: 0.9rem;
+  }
+
+  .email-form {
+    flex-direction: column;
+    gap: 8px;
+    max-width: 280px;
+  }
+
+  .email-input {
+    padding: 12px 15px;
+  }
+
+  .signup-btn {
+    padding: 12px 20px;
+  }
+
+  .menu-title {
+    font-size: 1.8rem;
+  }
+
+  .menu-section {
+    padding: 30px 15px;
+    margin: 15px auto 0 auto;
+  }
+
+  .coffee-menu {
+    padding: 30px 15px;
+    margin: 15px auto;
+  }
+
+  .menu-columns {
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .column-title {
+    text-align: center;
+    font-size: 1.3rem;
+  }
+
+  .menu-item {
+    margin-bottom: 20px;
+    padding: 10px;
+    gap: 15px;
+  }
+
+  .coffee-image-menu img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .coffee-image-menu {
+    flex: 0 0 60px;
+  }
+
+  .item-name {
+    font-size: 1.1rem;
+  }
+
+  .item-description {
+    font-size: 0.85rem;
+  }
+
+  .price {
+    font-size: 0.8rem;
+    padding: 3px 6px;
+  }
+
+  .reservation-header-section {
+    padding: 60px 15px;
+    margin: 15px auto;
+  }
+
+  .reservation-breadcrumb {
+    font-size: 2rem;
+  }
+
+  .reservation-content {
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .reservation-right {
+    flex: none;
+    width: 100%;
+    padding: 25px;
+  }
+
+  .discount-text {
+    font-size: 2.5rem;
+  }
+
+  .reservation-title {
+    font-size: 1.5rem;
+  }
+
+  .reservation-description {
+    font-size: 1rem;
+  }
+
+  .reservation-section {
+    padding: 30px 15px;
+    margin: 15px auto;
+  }
+
+  .form-title {
+    font-size: 1.3rem;
+  }
+
+  .form-input {
+    padding: 12px 15px;
+  }
+
+  .book-btn {
+    padding: 12px 25px;
+    font-size: 1rem;
+  }
+
+  .testimonial-header-section {
+    padding: 60px 15px;
+    margin: 15px auto;
+  }
+
+  .testimonial-section {
+    padding: 30px 15px;
+    margin: 15px auto;
+  }
+
+  .testimonial-header-title,
+  .testimonial-title {
+    font-size: 1.8rem;
+  }
+
+  .testimonials-slider {
+    margin: 0 -15px;
+    padding: 0 15px;
+  }
+
+  .testimonial-item {
+    min-width: 260px;
+    flex: 0 0 260px;
+    padding: 20px;
+  }
+
+  .client-photo {
+    width: 50px;
+    height: 50px;
+  }
+
+  .client-name {
+    font-size: 1.1rem;
+  }
+
+  .client-title {
+    font-size: 0.8rem;
+  }
+
+  .testimonial-text {
+    font-size: 0.9rem;
+  }
+
+  .testimonial-navigation {
+    gap: 12px;
+  }
+
+  .testimonial-arrow {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+  }
+
+  .contact-section {
+    padding: 30px 15px;
+    margin: 15px auto;
+  }
+
+  .contact-title {
+    font-size: 1.8rem;
+  }
+
+  .contact-info-grid {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .contact-info-item {
+    padding: 15px;
+  }
+
+  .contact-info-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .contact-info-icon i {
+    font-size: 1.2rem;
+  }
+
+  .contact-info-title {
+    font-size: 1.1rem;
+  }
+
+  .contact-info-text {
+    font-size: 0.9rem;
+  }
+
+  .map-contact-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .map-section iframe {
+    height: 250px;
+  }
+
+  .contact-form-section {
+    padding: 20px;
+  }
+
+  .map-contact-section {
+    padding: 30px 15px;
+    margin: 0 auto 30px auto;
+  }
+
+  .form-control {
+    padding: 12px 15px;
+  }
+
+  .send-message-btn {
+    padding: 12px 25px;
+    font-size: 1rem;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .footer-section {
+    padding: 30px 15px 0;
+  }
+
+  .footer-title {
+    font-size: 1.1rem;
+  }
+
+  .contact-item p {
+    font-size: 0.9rem;
+  }
+
+  .follow-text,
+  .newsletter-text {
+    font-size: 0.9rem;
+  }
+
+  .social-icon {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .newsletter-input {
+    padding: 10px 12px;
+  }
+
+  .newsletter-btn {
+    padding: 10px 20px;
+    min-width: 100px;
+  }
+
+  .newsletter-input,
+  .newsletter-btn {
+    border-radius: 5px;
+  }
+
+  .footer-bottom {
+    padding: 20px 0;
+  }
+
+  .copyright,
+  .crafted {
+    font-size: 0.8rem;
+  }
 
   .dropdown-menu {
     position: static;
@@ -1760,23 +2670,72 @@ nav {
     box-shadow: none;
     background: rgba(0, 0, 0, 0.1);
     margin-top: 0;
+    min-width: 150px;
   }
 
   .dropdown-menu::before {
     display: none;
   }
+
+  .dropdown-menu li a {
+    padding: 8px 15px;
+    font-size: 12px;
+  }
 }
 
-@media (max-width: 480px) {
-  .testimonial-item {
-    min-width: 280px;
-    flex: 0 0 280px;
-    padding: 20px;
+/* ===== EXTRA SMALL DEVICES (below 320px) ===== */
+@media (max-width: 319px) {
+  .hero-content h1 {
+    font-size: 32px;
   }
 
-  .testimonials-slider {
-    margin: 0 -20px;
-    padding: 0 20px;
+  .hero-content p {
+    font-size: 14px;
+  }
+
+  .hero-content h3 {
+    font-size: 16px;
+  }
+
+  .logo {
+    font-size: 24px;
+  }
+
+  .nav-links li a {
+    font-size: 11px;
+    padding: 5px 8px;
+  }
+
+  .section-title {
+    font-size: 1.3rem;
+  }
+
+  .menu-title,
+  .contact-title,
+  .testimonial-title {
+    font-size: 1.5rem;
+  }
+
+  .testimonial-item {
+    min-width: 240px;
+    flex: 0 0 240px;
+    padding: 15px;
+  }
+
+  .offer-percentage {
+    font-size: 2rem;
+  }
+
+  .offer-title {
+    font-size: 1.3rem;
+  }
+
+  .discount-text {
+    font-size: 2rem;
+  }
+
+  .reservation-title {
+    font-size: 1.3rem;
   }
 }
 
